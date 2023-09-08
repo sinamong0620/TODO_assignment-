@@ -4,6 +4,6 @@ const TodoContext = React.createContext({
   items: [],
   addTodo: (todo) => {},
   removeTodo: (id) => {},
-  updateTodo: (id) => {},
+  updateTodo: (todo) => {},
 });
 export default TodoContext;

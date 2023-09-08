@@ -1,19 +1,25 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useState } from "react";
 import TodoContext from "../context/todo-context";
 const TodoInput = () => {
-  const todoRef = useRef();
   const todoCtx = useContext(TodoContext);
+  const [todo, setTodo] = useState("");
 
   const todoSubmitHandler = (e) => {
     e.preventDefault();
-    todoCtx.addTodo({ id: Math.random(), todo: todoRef });
-    //흑흑 submit하고 다시 빈칸으로 되돌리고 시퍼이이..
-    // todoRef.current.value = "";
+    todoCtx.addTodo({ id: Math.random(), todo: todo });
+    setTodo("");
   };
-
+  const todoAddHandler = (e) => {
+    setTodo(e.target.value);
+  };
   return (
     <form onSubmit={todoSubmitHandler}>
-      <input type="text" placeholder="add item ..." ref={todoRef} />
+      <input
+        type="text"
+        placeholder="add item ..."
+        value={todo}
+        onChange={todoAddHandler}
+      />
       <button type="submit">Add</button>
     </form>
   );

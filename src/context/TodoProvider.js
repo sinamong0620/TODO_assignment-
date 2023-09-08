@@ -6,12 +6,9 @@ const todoinitial = {
 };
 const todoaction = (state, action) => {
   if (action.type === "ADD") {
-    //엥 왜이렇게 todo.todo 연달아 쓰는거지
-
-    //새로운 값을 여기다가 정리하고 그다음에 return에다가 넘겨주자
     const newTodo = {
       id: action.todo.id,
-      value: action.todo.todo.current.value,
+      value: action.todo.todo,
     };
 
     if (newTodo.value !== "") {
@@ -28,22 +25,23 @@ const todoaction = (state, action) => {
     const updatedTodoArray = state.items.filter(
       (item) => item.id !== deleteIndex.id
     );
+
     return { items: [...updatedTodoArray] };
   }
   if (action.type === "UPDATE") {
-    // console.log(action);
-    // const updateIndex = state.items.findIndex(
-    //   (item) => item.id === action.id.id
-    // );
-    // const { items } = state;
-    // const item = items[updateIndex].value;
-    // console.log(action.id);
-    // return { items: [...state.items] };
-    console.log(action.todo);
+    // console.log(action.todo.id);
+    // console.log(action.todo.todo);
+    const updateIndex = state.items.findIndex(
+      (item) => item.id === action.todo.id
+    );
+    state.items[updateIndex].value = action.todo.todo;
+
+    return { items: [...state.items] };
   }
   return { items: [...state.items] };
   //하하 무조건 return해줘야 undefined라고 안뜨는구먼
 };
+
 const TodoProvider = (props) => {
   //usereduece 의 값을 이용해서 usecontext값을 초기화하기
 
